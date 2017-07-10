@@ -1,0 +1,160 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box
+}
+
+body,html {
+	height: 100%
+}
+
+body {
+	font-family: "Microsoft YaHei";
+	font-size: 14px;
+	background: #f2f2f2
+}
+
+.clearfix {
+	*zoom: 1
+}
+
+.clearfix:after {
+	content: " ";
+	display: block;
+	clear: both
+}
+
+.headwrap {
+	width: 100%;
+	color: #fff;
+	background: #3a3a3a;
+	height: 36px;
+	position: fixed;
+	left: 0;
+	top: 0
+}
+
+.headwrap .head {
+	width: 1000px;
+	height: 100%;
+	margin: 0 auto;
+	line-height: 36px
+}
+
+.headwrap .head .tel {
+	float: left
+}
+
+.headwrap .head .userwrap {
+	float: right;
+	height: 100%;
+	position: relative
+}
+
+.headwrap .head .userwrap .user .userHead {
+	float: left;
+	padding-top: 3px
+}
+
+.headwrap .head .userwrap .user .userHead img {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%
+}
+
+.headwrap .head .userwrap .user .userName {
+	float: left;
+	line-height: 36px;
+	padding-left: 20px;
+	cursor: pointer
+}
+
+.headwrap .head .userwrap .user .userName i {
+	margin-left: 5px;
+	display: inline-block;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 6px 4px 0 4px;
+	border-color: #ffffff transparent transparent transparent
+}
+
+.headwrap .head .userwrap:hover .userInfo {
+	display: block
+}
+
+.headwrap .head .userwrap .userInfo {
+	display: none;
+	width: 320px;
+	height: 150px;
+	position: absolute;
+	right: 0px;
+	top: 36px;
+	background: #f2f2f2;
+    border-style: none solid solid solid;
+    border-width: 1px;
+    border-color: #1f1f1f;
+
+}
+
+.headwrap .head .userwrap .userInfo .infoHead {
+	float: left;
+	padding-top: 16px;
+	padding-left: 16px
+}
+
+.headwrap .head .userwrap .userInfo .infoHead img {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%
+}
+
+.headwrap .head .userwrap .userInfo .infoName {
+	float: right;
+	color: #000;
+	padding-right: 25px;
+	padding-top: 35px
+}
+
+.headwrap .head .userwrap .userInfo .infoName span {
+	display: block;
+	line-height: 20px
+}
+
+.headwrap .head .userwrap .userInfo .infoName span.name {
+	font-size: 20px;
+}
+
+.headwrap .head .userwrap .userInfo .btnWrap a {
+	text-decoration: none;
+	color: #fff;
+	display: inline-block;
+	height: 32px;
+	line-height: 32px;
+	padding: 0px 20px;
+	background: #717171;
+	margin-left: 10px
+}
+
+.headwrap .head .userwrap .userInfo .btnWrap a.btnGo {
+	padding: 0 65px
+}
+
+.headwrap{z-index:9999}
+
+
+.btnWrap{
+    padding-top: 10px;
+}
+
+span.name,span.accout{
+    text-align:center;
+}
+@media screen and (max-width: 1000px) {
+.headwrap .head{
+    width:100%;
+}
+}
+
+
+/*# sourceMappingURL=style.css.map */

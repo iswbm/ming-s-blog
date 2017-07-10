@@ -1,0 +1,19 @@
+{% extends 'user_base.html' %}
+
+
+{% block form %}
+<form id="email_register_form" method="post" enctype="multipart/form-data" autocomplete="off" action="{% url 'user:upload' %}"">
+    <h1>修改头像</h1>
+    <div style="width: 360px!important;height: 57px!important;">
+        <label class="ui_button ui_button_primary" for="xFile" style="display:inline-block;width: 288px;height: 15px;text-align: left;line-height:45px;padding: 15px 10px 15px 20px;font: 13px Helvetica, Arial, sans-serif; border: 1px solid #6f81c8;border-radius: 5px;background:#eae7e7">点击选择头像</label>
+        <input type="file" id="xFile" name='image' accept="image/*" style="position:absolute;clip:rect(0 0 0 0);">
+    </div>
+    <div>
+        <input type="submit" value="上传" />
+    </div>
+    <div id="ErrorTips">
+        <span  visibility="{% if not register_form.errors %}hidden{% endif %}">{% for key,value in register_form.errors.items %}{{ value }}{% endfor %}{{ msg }}</span>
+    </div>
+    {% csrf_token %}
+</form><!-- form -->
+{% endblock %}

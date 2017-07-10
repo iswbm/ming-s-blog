@@ -1,0 +1,73 @@
+{% extends 'user_base.html' %}
+
+{% block form %}
+<form id="reset" method="POST" action="{% url 'user:reset' %}">
+    <h1>找回密码</h1>
+    <div>
+        <input class="email" type="text" name="email" placeholder="您的电子邮箱" value="{% if register_form.email.value %}{{ register_form.email.value }}{% endif %}" required="" id="email" />
+    </div>
+    <div>
+        <input class="password" type="password" name="password" placeholder="输入新密码" required="" id="password" />
+    </div>
+    <div id="ErrorTips">
+        <span  visibility="{% if not register_form.errors %}hidden{% endif %}">{% for key,value in register_form.errors.items %}{{ value }}{% endfor %}{{ msg }}</span>
+    </div>
+    <div>
+        <span style="float: left;margin-left:20px;margin-top: 5px">
+            <input type="button" id="jsSendBtn" value="发送验证码" style="color:white;background-color: #5774fe;margin-bottom: 10px;font-size: 14px;;padding: 8px 5px 8px 5px;" />
+        </span>
+        <span style="margin-right: -5px"><input type="text" name="captcha" placeholder="验证码" style="display:inline-block;width: 180px;height: 15px;text-align: left;line-height:45px;padding: 15px 10px 15px 20px;font: 13px Helvetica, Arial, sans-serif; border: 1px solid #6f81c8;border-radius: 5px;background:#eae7e7"></span>
+    </div>
+    <div id="ErrorTips">
+        <span  visibility="{% if not reset_form.errors %}hidden{% endif %}">{% for key,value in reset_form.errors.items %}{{ value }}{% endfor %}{{ msg }}</span>
+    </div>
+    <div>
+        <span><input type="submit" id="jsReset" value="修改密码" style="margin-top: 10px"/></span>
+    </div>
+    {% csrf_token %}
+</form>
+
+{% endblock %}
+
+
+{% block custom_js %}
+<script>
+    $(function () {
+        $('#jsSendBtn').on('click', function () {
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: "{% url 'sendcode' %}",
+                data: $('#reset').serialize(),
+                async: true,
+                success: function (data) {
+                    if(data.status == 'success'){
+                        alert(data.msg);
+                    }else if(data.status == 'fail') {
+                        alert(data.msg);
+                    }
+                },
+            });
+        });
+    })
+
+    $(function () {
+        $('#jsReset').on('click', function () {
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: "{% url 'user:reset' %}",
+                data: $('#reset').serialize(),
+                async: true,
+                success: function (data) {
+                    if(data.status == 'success'){
+                        alert(data.msg);
+                    }else if(data.status == 'fail') {
+                        alert(data.msg);
+                    }
+                },
+            });
+        });
+    })
+</script>
+{% endblock %}

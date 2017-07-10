@@ -1,0 +1,21 @@
+{% block title %}<title>MING's BLOG 登录</title>{% endblock %}
+{% block form %}
+    <form action="{% url 'user:login' %}" method="post" autocomplete="off">
+        <h1>Login</h1>
+        <div>
+            <input type="text" name="username" placeholder="请输入您的用户名" value="{% if register_form.username.value %}{{ register_form.username.value }}{% endif %}"required="" id="username" />
+        </div>
+        <div>
+            <input type="password" name="password" placeholder="请输入您的密码" value="{% if register_form.password.value %}{{ register_form.password.value }}{% endif %}" required="" id="password" />
+        </div>
+        <div id="ErrorTips">
+            <span  visibility="{% if not register_form.errors %}hidden{% endif %}">{% for key,value in register_form.errors.items %}{{ value }}{% endfor %}{{ msg }}</span>
+        </div>
+        <div>
+            <input type="submit" value="登录" />
+            <a href="{% url 'user:reset' %}">找回密码</a>
+            <a href="{% url 'user:register' %}">没有账号？点击注册</a>
+        </div>
+    {% csrf_token %}
+    </form><!-- form -->
+{% endblock %}

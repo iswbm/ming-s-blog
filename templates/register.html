@@ -1,0 +1,31 @@
+{% extends 'user_base.html' %}
+
+{% block title %}<title>MING's BLOG 注册账号</title>{% endblock %}
+{% block form %}
+    <form id="email_register_form" method="post" enctype="multipart/form-data" autocomplete="off" action="{% url 'user:register' %}"">
+        <h1>Register</h1>
+        <div>
+            <input class="email" type="text" name="email" placeholder="您的电子邮箱" value="{% if register_form.email.value %}{{ register_form.email.value }}{% endif %}" required="" id="email" />
+        </div>
+        <div>
+            <input class="username" type="text" name="username" placeholder="请输入您的用户名" value="{% if register_form.username.value %}{{ register_form.username.value }}{% endif %}"required="" id="username" />
+        </div>
+        <div>
+            <input class="nick_name" type="text" name="nick_name" placeholder="请输入您的昵称" value="{% if register_form.nick_name.value %}{{ register_form.nick_name.value }}{% endif %}"required="" id="nick_name" />
+        </div>
+        <div>
+            <input class="password" type="password" name="password" placeholder="请输入您的密码" value="{% if register_form.password.value %}{{ register_form.password.value }}{% endif %}" required="" id="password" />
+        </div>
+        <div>
+            {{ register_form.captcha }}
+        </div>
+        <div id="ErrorTips">
+            <span  visibility="{% if not register_form.errors %}hidden{% endif %}">{% for key,value in register_form.errors.items %}{{ value }}{% endfor %}{{ msg }}</span>
+        </div>
+        <div>
+            <input type="submit" value="注册" />
+            <a href="{% url 'user:login' %}">已有账号？点击登录</a>
+        </div>
+        {% csrf_token %}
+    </form>
+{% endblock %}

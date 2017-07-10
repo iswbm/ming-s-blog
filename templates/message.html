@@ -1,0 +1,144 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+
+{% block main %}
+<main id="main" class="main">
+    <div class="main-inner">
+    <div class="content-wrap">
+    <div id="content" class="content">
+        <div id="posts" class="posts-expand">
+            <blockquote class="blockquote-center">{{ board.quote }}</blockquote>
+            <blockquote>
+                <div class="div">
+                    {% autoescape off %}
+                    {{ board.illustration }}
+                    {% endautoescape %}
+                </div>
+            </blockquote>
+            <style type="text/css">.div a:link{color:#0593d3;font-family:"楷体";font-size:15px}.div a:visited{color:#0477ab}.div a:hover{color:#0477ab}</style>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="sidebar-toggle">
+        <div class="sidebar-toggle-line-wrap">
+            <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+            <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+            <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+    </div>
+        <!-- 侧边栏 -->
+        {% block site_state %}
+            <aside id="sidebar" class="sidebar">
+            <div class="sidebar-inner"><section class="site-overview sidebar-panel sidebar-panel-active">
+                <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+                    <img class="site-author-image" itemprop="image" src="{{ MEDIA_URL }}{{ author.image }}" alt="MING">
+                    <p class="site-author-name" itemprop="name">{{ author.username }}</p>
+                    <p class="site-description motion-element" itemprop="description">城南花开</p>
+                </div>
+
+                <nav class="site-state motion-element">
+                    <div class="site-state-item site-state-posts">
+                        <a href="{% url "archive" %}">
+                            <span class="site-state-item-count">{{ article_nums }}</span>
+                            <span class="site-state-item-name">日志</span>
+                        </a>
+                    </div>
+
+                    <div class="site-state-item site-state-categories">
+                        <a href="{% url 'category' %}">
+                            <span class="site-state-item-count">{{ cat_nums }}</span>
+                            <span class="site-state-item-name">分类</span>
+                        </a>
+                    </div>
+
+                    <div class="site-state-item site-state-tags">
+                        <a href="{% url 'tag' %}">
+                            <span class="site-state-item-count">{{ tag_nums }}</span>
+                            <span class="site-state-item-name">标签</span>
+                        </a>
+                    </div>
+                </nav>
+                <div class="feed-link motion-element">
+                    <a href="#" rel="alternate">
+                    <i class="fa fa-rss"></i>
+                    RSS</a>
+                </div>
+
+                <div class="links-of-author motion-element">
+                    <span class="links-of-author-item"><a href="https://github.com/BingmingWong" rel="external nofollow" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i> GitHub</a>
+                    </span>
+                    <span class="links-of-author-item"><a href="https://www.zhihu.com/people/wongbingming/activities" rel="external nofollow" target="_blank" title="知乎"><i class="fa fa-fw fa-globe"></i> 知乎</a>
+                    </span>
+                    <span class="links-of-author-item">
+                        <a href="http://weibo.com/942663728" rel="external nofollow" target="_blank" title="Weibo">
+                            <i class="fa fa-fw fa-globe"></i>
+                            Weibo
+                        </a>
+                    </span>
+                </div>
+
+                <div class="cc-license motion-element" itemprop="license">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+                        <img src="{% static 'svg/cc-by-nc-sa.svg' %}" alt="Creative Commons">
+                    </a>
+                </div>
+
+                <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+
+                    <div class="links-of-blogroll-title"><i class="fa fa-fw fa-globe"></i> 友情链接
+                    </div>
+                    <ul class="links-of-blogroll-list">
+                    {% for link in links %}
+                        <li class="links-of-blogroll-item">
+                            <a href="{{ link.link }}" title="{{ link.name }}" target="_blank">{{ link.name }}</a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                </section>
+            </div>
+            </aside>
+        {% endblock %}
+    </div>
+    <div id="comment_area">
+    <form action="{% url 'message' %}" method="post" class="STYLE-NAME">
+        <h1>留言板</h1>
+        <label>
+            <textarea id="message" wrap="virtual" required name="message" placeholder="你不留点东西吗？ ╰_╯" autofocus></textarea>
+        </label>
+        <label>
+            <span>&nbsp;</span>
+            <input type="submit" class="submit" value="评论" style="float: right;width: 100px;height: 35px;font-size: 15px;margin: 0 10px;"/>
+        </label>
+        {% csrf_token %}
+    </form>
+    </div>
+
+    <!--留言板-->
+    <div id="message_display">
+        {% for message in messages %}
+        <div id="message_block">
+            <div id="message_header">
+                <span><img src="{{ MEDIA_URL }}{{ message.user.image }}"  alt="" /></span>
+                <span class="user_info">
+                    <span class="message_from">{{ message.user.nick_name }}</span>
+                    <span>于</span>
+                    <span class="message_time">{{ message.add_time }}</span>
+                </span>
+
+            </div>
+            <div>
+                <p class="message_content">{{ message.content }}</p>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</main>
+{% endblock %}
+
+{% block custom_css %}
+    <link href="{% static 'css/message.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}

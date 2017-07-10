@@ -1,0 +1,286 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+
+{% load html_parser %}
+{% block main %}
+    <main id="main" class="main">
+
+    <div class="main-inner">
+    <!-- 内容 -->
+    <div class="content-wrap">
+
+    <!-- 文章内容 -->
+    <div id="content" class="content">
+        <!-- 标题 -->
+    <div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article" style="opacity: 1; display: block; transform: translateY(0px);">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">{{ article.title }}</h1>
+        <div class="post-meta">
+            <span class="post-time">
+                <span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span>
+                <span class="post-meta-item-text">发表于</span>
+                <time itemprop="dateCreated" datetime="{{ article.add_time }}" content="{{ article.created_date }}">{{ article.created_date }}</time>
+            </span>
+
+            <span class="post-category">&nbsp; | &nbsp;
+                <span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span>
+                <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope="" itemtype="https://schema.org/Thing">
+                    <a href="https://thief.one/categories/%E7%88%AC%E8%99%AB%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">{{ article.category }}</span></a>
+                </span>
+            </span>
+
+            <span id="/2017/04/12/2/" class="leancloud_visitors" data-flag-title="{{ article.title }}">&nbsp; | &nbsp;
+
+                <span class="post-meta-item-icon">
+                    <i class="fa fa-eye"></i>
+                </span>
+                <span class="post-meta-item-text">热度</span>
+                <span class="leancloud-visitors-count">{{ article.view_nums }}</span>
+                <span>℃</span>
+            </span>
+        </div>
+    </header>
+
+    <!-- 文章正文 -->
+    <div class="post-body" itemprop="articleBody">
+
+    <blockquote class="blockquote-center">{{ article.quote_inner }}</blockquote>
+        {% autoescape off %}
+            {{ article.content }}
+        {% endautoescape %}
+    <div>
+
+    <div class="my_post_copyright">
+    <script src="{% static 'js/clipboard.min.js' %}"></script>
+    <script type="{% static 'js/jquery-1.7.1.min.js' %}"></script>
+    <script src="{% static 'js/sweetalert.min.js' %}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sweetalert.mini.css' %}">
+    <p>
+
+    <span>本文标题:
+    </span><a href="{% url 'article' title=article.title is_com=0 %}">{{ article.title }}</a></p>
+
+    <p>
+
+    <span>文章作者:
+    </span><a href="{% url 'homepage' %}" title="访问 MING 的个人博客">MING</a></p>
+
+    <p>
+
+    <span>发布时间:
+    </span>{{ article.add_time }}</p>
+
+    <p>
+
+    <span>最后更新:
+    </span>{{ article.update_time }}</p>
+
+    <p>
+
+    <span>原始链接:
+    </span><a href="{% url 'article' title=article.title is_com=0 %}" title="{{ article.title }}">{% url 'article' title=article.title is_com=0 %}</a>
+
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="{% url 'article' title=article.title is_com=0 %}" aria-label="复制成功！"></i>
+    </span></p>
+
+    <p>
+
+    <span>许可协议:
+    </span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+    </div>
+    <script>var clipboard=new Clipboard(".fa-clipboard");clipboard.on("success",$(function(){$(".fa-clipboard").click(function(){swal({title:"",text:"复制成功",html:!1,timer:500,showConfirmButton:!1})})}))</script>
+    </div>
+
+    <div>
+    </div>
+
+    <div>
+    </div><footer class="post-footer">
+
+    <!-- 文章标签 -->
+    <div class="post-tags">
+        {% for article_tag in article_tags %}
+        <a href="{% url 'tag_article' article_tag.tag.name %}" rel="tag">
+            <i class="fa fa-tag"></i>
+            {{ article_tag.tag.name }}
+        </a>
+        {% endfor %}
+    </div>
+<!-- 上下篇
+    <div class="post-nav">
+
+        <div class="post-nav-next post-nav-item">
+        <a href="https://thief.one/2017/04/12/1/" rel="next" title="phpcms漏洞">
+        <i class="fa fa-chevron-left"></i> phpcms漏洞</a>
+        </div>
+
+        <div class="post-nav-prev post-nav-item">
+        <a href="https://thief.one/2017/04/14/1/" rel="prev" title="Python2编码之殇续集">Python2编码之殇续集<i class="fa fa-chevron-right"></i></a>
+        </div>
+
+    </div>
+-->
+    </footer>
+    </article>
+
+    <div class="post-spread">
+    </div>
+    </div></div>
+    </div>
+    <!-- 评论框 -->
+    <div id="comment_area">
+    <form action="{% url 'comment' article.id %}" method="post" class="STYLE-NAME">
+        <h1>留下你的足迹~</h1>
+        <label>
+            <textarea id="message" wrap="virtual" name="comment" placeholder="撰写评论吧 *^_^*" {% ifequal is_com "1" %}autofocus{% endifequal %}></textarea>
+        </label>
+        <label>
+            <span>&nbsp;</span>
+            <input type="submit" class="submit" value="评论" style="float: right;width: 100px;height: 35px;font-size: 15px;margin: 0 10px;"/>
+        </label>
+    {% csrf_token %}
+    </form>
+    </div>
+
+    <!-- 评论展示 -->
+    <div class="comment">
+        {% for comment in comments %}
+        <div id="message_block">
+            <div id="message_header">
+                <span><img src="{{ MEDIA_URL }}{{ comment.user.image }}"  alt="{{ comment.user.nick_name }}" /></span>
+                <span class="user_info">
+                    <span class="message_from">{{ comment.user.nick_name }}</span>
+                    <span>于</span>
+                    <span class="message_time">{{ comment.add_time }}</span>
+                </span>
+
+            </div>
+            <div>
+                <p class="message_content">{{ comment.content }}</p>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="sidebar-toggle">
+
+    <div class="sidebar-toggle-line-wrap">
+
+    <span class="sidebar-toggle-line sidebar-toggle-line-first" style="top: 5px; transform: rotateZ(-45deg); width: 100%;">
+    </span>
+
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle" style="opacity: 0;">
+    </span>
+
+    <span class="sidebar-toggle-line sidebar-toggle-line-last" style="top: -5px; transform: rotateZ(45deg); width: 100%;">
+    </span>
+    </div>
+    </div>
+    <aside id="sidebar" class="sidebar sidebar-active" style="display: block; width: 320px;">
+
+        <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+            <li id='article_nav' class="sidebar-nav-toc sidebar-nav-active" onclick="article_nav()" data-target="post-toc-wrap"> 文章目录</li>
+            <li id='overview_nav' lass="sidebar-nav-overview" onclick="overview()" data-target="site-overview"> 站点概览</li>
+        </ul>
+            <section id="post" class="post-toc-wrap motion-element sidebar-panel-active" style="opacity: 1; display: block; transform: translateX(0px);">
+            <div class="post-toc" style="max-height: 842px; width: calc(100% + 15px);">
+
+                <div class="post-toc-content">
+                    <!-- 侧边栏标题导航栏 -->
+                    <ol class="nav">
+                    {% for tag in tags_in_html %}
+                        <li class="nav-item nav-level-3">
+                            <a class="nav-link" href="#{{ tag|get_tag_text }}">
+                                <span class="nav-number">{% if tag|get_tag_name == 'h2' %}&emsp;{% endif %}</span>
+                                <span class="nav-text">{{ tag|get_tag_text }}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                    </ol>
+                </div>
+            </div>
+            </section>
+            <section id="overview" class="site-overview sidebar-panel">
+                <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person" style="opacity: 1; display: block; transform: translateX(0px);">
+                    <img class="site-author-image" itemprop="image" src="{{ MEDIA_URL }}{{ author.image }}" alt="{{ author.nick_name }}">
+                    <p class="site-author-name" itemprop="name">{{ author.nick_name }}</p>
+                    <p class="site-description motion-element" itemprop="description" style="opacity: 1; display: block; transform: translateX(0px);">城南花开</p>
+                </div>
+                <nav class="site-state motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+                <div class="site-state-item site-state-posts">
+                    <a href="{% url 'archive' %}">
+                        <span class="site-state-item-count">{{ article_nums }}</span>
+                        <span class="site-state-item-name">日志</span>
+                    </a>
+                </div>
+                <div class="site-state-item site-state-categories">
+                    <a href="{% url 'category' %}">
+                        <span class="site-state-item-count">{{ cat_nums }}</span>
+                        <span class="site-state-item-name">分类</span>
+                    </a>
+                </div>
+                <div class="site-state-item site-state-tags">
+                    <a href="{% url 'tag' %}">
+                        <span class="site-state-item-count">{{ tag_nums }}</span>
+                        <span class="site-state-item-name">标签</span>
+                    </a>
+                </div></nav>
+                <div class="feed-link motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+                    <a href="#" rel="alternate"><i class="fa fa-rss"></i> RSS</a>
+                </div>
+                <div class="links-of-author motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+                    {% for site in sites %}
+                    <span class="links-of-author-item">
+                        <a href="{{ site.link }}" rel="external nofollow" target="_blank" title="{{ site.name }}">
+                            <i class="fa fa-fw fa-globe">
+                            </i> {{ site.name }}</a>
+                    </span>
+                    {% endfor %}
+                </div>
+                <div class="cc-license motion-element" itemprop="license" style="opacity: 1; display: block; transform: translateX(0px);">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+                        <img src="{% static 'svg/cc-by-nc-sa.svg' %}" alt="Creative Commons">
+                    </a>
+                </div>
+                <div class="links-of-blogroll motion-element links-of-blogroll-inline" style="opacity: 1; display: block; transform: translateX(0px);">
+                    <div class="links-of-blogroll-title"><i class="fa fa-fw fa-globe"></i> 友情链接</div>
+                    <ul class="links-of-blogroll-list">
+                        {% for link in links %}
+                            <li class="links-of-blogroll-item">
+                                <a href="{{ link.link }}" title="{{ link.name }}" target="_blank">{{ link.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+            </div>
+        </section>
+        </div>
+    </aside>
+    </div>
+
+    <script type="text/javascript">
+        function article_nav(){
+            $("#overview").hide();
+            $("#post").show();
+            document.getElementsByClassName("article_nav").className = "sidebar-nav-toc sidebar-nav-active";
+            document.getElementsByClassName("overview_nav").className = "sidebar-nav-overview";
+            document.getElementById("post").className = "post-toc-wrap motion-element sidebar-panel-active";
+        }
+        function overview(){
+            $("#post").hide();
+            $("#overview").show();
+            document.getElementById("article_nav").className = "sidebar-nav-toc";
+            document.getElementById("overview_nav").className = "sidebar-nav-overview sidebar-nav-active";
+            document.getElementById("overview").className = "site-overview sidebar-panel sidebar-panel-active"
+        }
+    </script>
+</main>
+{% endblock %}
+
+{% block custom_css %}
+    <link href="{% static 'css/message.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
