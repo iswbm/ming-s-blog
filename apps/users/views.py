@@ -63,7 +63,7 @@ class RegisterView(View):
             return render(request, 'register.html', {'register_form': register_form})
 
 
-class ActiveView(View):
+class ActivateView(View):
     def get(self, request, activate_code):
         all_record = EmailVerifyRecord.objects.filter(code=activate_code)
         if all_record:
@@ -77,7 +77,7 @@ class ActiveView(View):
         else:
             return render(request, 'active_fail.html')
         from django.core.urlresolvers import reverse
-        return HttpResponseRedirect(reverse('upload'))
+        return HttpResponseRedirect(reverse('user:upload'))
 
 
 class LogoutView(View):

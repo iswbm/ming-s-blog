@@ -10,6 +10,9 @@ from message.models import Message, Comment
 from sites.models import SecWebCategory
 from bs4 import BeautifulSoup
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+import markdown
+from django.utils.text import slugify
+from markdown.extensions.toc import TocExtension
 # Create your views here.
 
 
@@ -39,7 +42,7 @@ class HomeView(View):
         except PageNotAnInteger:
             page = 1
 
-        P = Paginator(articles, 1, request=request)
+        P = Paginator(articles, 10, request=request)
         articles = P.page(page)
         return render(request, 'index.html', {
             "articles": articles,
@@ -243,6 +246,13 @@ class ArticleView(View):
         visit.save()
 
         article = Articles.objects.get(title=title)
+        md = markdown.Markdown(extensions=[
+                                  'markdown.extensions.extra',
+                                  'markdown.extensions.codehilite',
+                                  'markdown.extensions.toc',
+                                  TocExtension(slugify=slugify),
+                              ])
+        article_md = md.convert(article.content)
         article.view_nums += 1
         article.save()
         article_nums = Articles.objects.count()
@@ -254,11 +264,11 @@ class ArticleView(View):
         links = UsefulLinks.objects.all()
         #  我的网站
         sites = MySite.objects.all()
-        #  获取标题
-        content_html = article.content
-        soup = BeautifulSoup(content_html, "html.parser")
-        tags_in_html = soup.find_all(['h1', 'h2'])
-        tags_in_html = [unicode(tag) for tag in tags_in_html]
+        #  用beautiful获取标题
+        # content_html = article.content
+        # soup = BeautifulSoup(content_html, "html.parser")
+        # tags_in_html = soup.find_all(['h1', 'h2'])
+        # tags_in_html = [unicode(tag) for tag in tags_in_html]
 
         #  获取评论
         comments = Comment.objects.filter(article=article)
@@ -267,7 +277,7 @@ class ArticleView(View):
         article_tags = ArticleTag.objects.filter(article=article)
         return render(request, 'article.html', {
             'article': article,
-            'tags_in_html': tags_in_html,
+            # 'tags_in_html': tags_in_html,
             'article_tags': article_tags,
             'is_com': is_com,
             'comments': comments,
@@ -278,6 +288,8 @@ class ArticleView(View):
             "sites": sites,
             "links": links,
             "visit_nums": visit.visit_nums,
+            "article_md": article_md,
+            "toc": md.toc,
         })
 
 

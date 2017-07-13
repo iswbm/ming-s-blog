@@ -22,7 +22,7 @@ class ArticlesAdmin(object):
     list_display = ['title', 'category', 'author', 'add_time']
     search_fields = ['title', 'content']
     list_filter = ['category', 'add_time']
-    style_fields = {"content": "ueditor"}
+    # style_fields = {"content": "ueditor"}
 
 
 class TagsAdmin(object):

@@ -25,7 +25,7 @@ def send_register_email(email, send_type='register'):
 
     if send_type == 'register':
         email_title = u"MING's 个人博客 注册账号激活链接"
-        email_body = u'请点击下方链接进行账号激活：http:127.0.0.1:8000/activate/{0}'.format(code)
+        email_body = u'请点击下方链接进行账号激活：http:23.106.145.108/users/activate/{0}'.format(code)
 
         send_status = send_mail(email_title, email_body, EMAIL_FROM, [email])
         if send_status:

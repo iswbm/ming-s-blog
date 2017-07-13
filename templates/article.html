@@ -48,7 +48,7 @@
 
     <blockquote class="blockquote-center">{{ article.quote_inner }}</blockquote>
         {% autoescape off %}
-            {{ article.content }}
+            {{ article_md }}
         {% endautoescape %}
     <div>
 
@@ -193,14 +193,16 @@
                 <div class="post-toc-content">
                     <!-- 侧边栏标题导航栏 -->
                     <ol class="nav">
-                    {% for tag in tags_in_html %}
-                        <li class="nav-item nav-level-3">
-                            <a class="nav-link" href="#{{ tag|get_tag_text }}">
-                                <span class="nav-number">{% if tag|get_tag_name == 'h2' %}&emsp;{% endif %}</span>
-                                <span class="nav-text">{{ tag|get_tag_text }}</span>
-                            </a>
-                        </li>
-                    {% endfor %}
+                        {{ toc|safe }}
+{#                      用beautiful生成标题栏  #}
+{#                    {% for tag in tags_in_html %}#}
+{#                        <li class="nav-item nav-level-3">#}
+{#                            <a class="nav-link" href="#{{ tag|get_tag_text }}">#}
+{#                                <span class="nav-number">{% if tag|get_tag_name == 'h2' %}&emsp;{% endif %}</span>#}
+{#                                <span class="nav-text">{{ tag|get_tag_text }}</span>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    {% endfor %}#}
                     </ol>
                 </div>
             </div>
@@ -282,5 +284,22 @@
 {% endblock %}
 
 {% block custom_css %}
-    <link href="{% static 'css/message.css' %}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/message.css' %}">
+    <link rel="stylesheet" href="{% static 'css/github.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/1bc053c8.base.lib.min.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'css/2e85637e.mdeditor.lib.min.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'css/45c7d56d.layout.min.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'css/prettify-cmd.css' %}">#}
 {% endblock %}
+
+{#{% block custom_js %}#}
+{#    <script type="text/javascript" src="{% static 'js/7daebaf5.mdeditor.min.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'js/7a70106e.layout.lib.min.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'js/mathJax.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'js/mermaid.min.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'js/jax.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'js/dc648f35.layout.min.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'js/analytics.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'js/288313bb.base.lib.min.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'js/0832e823.mdeditor.lib.min.js' %}"></script>#}
+{#{% endblock %}#}

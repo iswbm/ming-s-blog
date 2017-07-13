@@ -3,7 +3,7 @@ __author__ = 'Alon'
 __date__ = '2017/7/10 10:22'
 
 from django.conf.urls import url
-from .views import LoginView, RegisterView, ActiveView, LogoutView, UpLoadImageView, ResetView
+from .views import LoginView, RegisterView, ActivateView, LogoutView, UpLoadImageView, ResetView
 
 urlpatterns = [
     url(r'^login/$', LoginView.as_view(), name='login'),
@@ -12,5 +12,5 @@ urlpatterns = [
     url(r'^reset/', ResetView.as_view(), name='reset'),
     url(r'^upload/$', UpLoadImageView.as_view(), name="upload"),
     # 激活
-    url(r'^activate/(?P<activate_code>.*)/$', ActiveView.as_view(), name='activate'),
+    url(r'^activate/(?P<activate_code>.*)/$', ActivateView.as_view(), name='activate'),
 ]

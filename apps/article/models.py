@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from datetime import datetime
 from django.db import models
 
-from DjangoUeditor.models import UEditorField
+# from DjangoUeditor.models import UEditorField
 # Create your models here.
 
 
@@ -24,8 +24,7 @@ class Category(models.Model):
 
 class Articles(models.Model):
     title = models.CharField(max_length=50, verbose_name=u"文章标题")
-    content = UEditorField(width=1200, height=600, imagePath="article/ueditor/",
-                           filePath="article/ueditor/",verbose_name=u"文章内容")
+    content = models.TextField(verbose_name=u"文章内容")
     abstract = models.CharField(default='', max_length=200, verbose_name=u"摘要")
     author = models.CharField(max_length=20, verbose_name=u"作者")
     category = models.ForeignKey(Category, verbose_name=u"分类")

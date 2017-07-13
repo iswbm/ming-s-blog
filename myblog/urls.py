@@ -43,7 +43,7 @@ urlpatterns = [
     url(r'^sendcode/$', SendCodeView.as_view(), name='sendcode'),
 
     # 富文本相关
-    url(r'^ueditor/', include('DjangoUeditor.urls')),
+    # url(r'^ueditor/', include('DjangoUeditor.urls')),
     # 验证码
     url(r'^captcha/', include('captcha.urls')),
 

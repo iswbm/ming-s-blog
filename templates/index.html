@@ -10,7 +10,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 
-        <script type="text/javascript" src="{% static 'js/love.js' %}"></script>
+{#        <script type="text/javascript" src="{% static 'js/love.js' %}"></script>#}
         <script type="text/javascript" id="hexo.configuration">
             var NexT=window.NexT||{},CONFIG={scheme:"Mist",sidebar:{position:"left",display:"post"},fancybox:!0,motion:!0,duoshuo:{userId:void 0,author:"博主"}}
         </script>
@@ -27,7 +27,7 @@
         <script type="text/javascript" src="{% static 'js/motion.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
 
-        {% block script %}{% endblock %}
+        {% block custom_js %}{% endblock %}
         {% block custom_css %}{% endblock %}
 
         <link href="/static/css/pace-theme-flash.css" rel="stylesheet">
@@ -43,7 +43,7 @@
 
     <body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans" class="  pace-done">
         <!-- top是顶部 -->
-        <div class="headwrap" style="">
+        <div class="headwrap" {% if 'article' in request.path %}style="position: absolute;top:-30px"{% endif %}>
             <div class="head">
                 <div class="tel">
                 </div>
@@ -123,13 +123,13 @@
                     </div>
                     <nav class="site-nav">
                         <ul id="menu" class="menu">
-                            <li class="menu-item menu-item-count" style="opacity: 1; transform: translateY(0px);"><a href="{% url 'count' %}" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i>
-                                <br> 琅琊榜</a>
+                            <li class="menu-item menu-item-count" style="opacity: 1; transform: translateY(0px);"><a href="{% url 'count' %}" rel="section"><i class="menu-item-icon fa fa-book"></i>
+                                <br> 阅读排行</a>
                             </li>
-                            <li class="menu-item menu-item-collect_url" style="opacity: 1; transform: translateY(0px);"><a href="{% url 'secweb' %}" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i>
+                            <li class="menu-item menu-item-collect_url" style="opacity: 1; transform: translateY(0px);"><a href="{% url 'secweb' %}" rel="section"><i class="menu-item-icon fa fa-internet-explorer"></i>
                                 <br> 安全导航</a>
                             </li>
-                            <li class="menu-item menu-item-message" style="opacity: 1; transform: translateY(0px);"><a href="{% url 'message' %}" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i>
+                            <li class="menu-item menu-item-message" style="opacity: 1; transform: translateY(0px);"><a href="{% url 'message' %}" rel="section"><i class="menu-item-icon fa fa-comments"></i>
                                 <br> 留言</a>
                             </li>
                             <li class="menu-item menu-item-archives" style="opacity: 1; transform: translateY(0px);"><a href="{% url 'archive' %}" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i>
@@ -186,7 +186,7 @@
                                             <span class="post-time">
                                                 <span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span>
                                                 <span class="post-meta-item-text">发表于</span>
-                                                <time itemprop="dateCreated" datetime="2017-04-12T22:38:09+08:00" content="{{ article.add_time }}">{{ article.add_time }}</time></span>
+                                                <time itemprop="dateCreated" datetime="{{ article.add_time }}" content="{{ article.add_time }}">{{ article.add_time }}</time></span>
                                             <span class="post-category">&nbsp; | &nbsp;
                                                 <span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span>
                                                 <span class="post-meta-item-text">分类于</span>
@@ -201,7 +201,7 @@
                                                     <i class="fa fa-eye"></i>
                                                 </span>
                                                 <span class="post-meta-item-text">热度</span>
-                                                <span class="leancloud-visitors-count">4516</span>
+                                                <span class="leancloud-visitors-count">{{ article.view_nums }}</span>
                                                 <span>℃</span>
                                             </span>
                                         </div>
@@ -358,8 +358,8 @@
             {% block footer %}
                 <footer id="footer" class="footer">
                     <div class="footer-inner">
-                        <div class="copyright"> © 2016 -
-                            <span itemprop="copyrightYear">2017</span>
+                        <div class="copyright"> © 2017 -
+                            <span itemprop="copyrightYear">2020</span>
                             <span class="with-love">
                                 <i class="fa fa-heart"></i>
                             </span>

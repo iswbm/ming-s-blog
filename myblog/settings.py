@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'message',
     'crispy_forms',
     'xadmin',
-    'DjangoUeditor',
+    # 'DjangoUeditor',
     'pure_pagination',
     'users',
     'captcha',
@@ -90,9 +90,9 @@ WSGI_APPLICATION = 'myblog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '',
-        'USER': 'root',
-        'PASSWORD': '',
+        'NAME': '*',
+        'USER': '*',
+        'PASSWORD': '*',
         'HOST': '127.0.0.1'
     }
 }
@@ -151,10 +151,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 25
-EMAIL_HOST_USER = '***@163.com'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = '*@163.com'
+EMAIL_HOST_PASSWORD = '*'
 EMAIL_USER_LTS = False
-EMAIL_FROM = '***@163.com'
+EMAIL_FROM = '*@163.com'
 
 
 
