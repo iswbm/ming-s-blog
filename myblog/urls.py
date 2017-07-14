@@ -27,15 +27,15 @@ from myblog.settings import MEDIA_ROOT
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^$', HomeView.as_view(), name='homepage'),
-    url(r'^category/', CategoryView.as_view(), name='category'),
+    url(r'^category/$', CategoryView.as_view(), name='category'),
     url(r'^category_list/(?P<category>.+)/$', CategoryListView.as_view(), name='category_list'),
-    url(r'^archives/', ArchiveView.as_view(), name='archive'),
-    url(r'^tags/list/', TagView.as_view(), name='tag'),
+    url(r'^archives/$', ArchiveView.as_view(), name='archive'),
+    url(r'^tags/list/$', TagView.as_view(), name='tag'),
     url(r'^tag/(?P<tag_name>.+)/$', ArticleTagView.as_view(), name='tag_article'),
-    url(r'^messages/', MessageView.as_view(), name='message'),
+    url(r'^messages/$', MessageView.as_view(), name='message'),
     url(r'^comments/(?P<article_id>\d+)/$', CommentView.as_view(), name='comment'),
-    url(r'^SecWeb/', SecWebView.as_view(), name='secweb'),
-    url(r'^count/', CountView.as_view(), name='count'),
+    url(r'^SecWeb/$', SecWebView.as_view(), name='secweb'),
+    url(r'^count/$', CountView.as_view(), name='count'),
     url(r'^article/(?P<title>.+)&(?P<is_com>.+)/$', ArticleView.as_view(), name='article'),
 
     url(r'^user/', include("users.urls", namespace='user')),
@@ -48,7 +48,7 @@ urlpatterns = [
     url(r'^captcha/', include('captcha.urls')),
 
     # 媒体文件
-    url(r'^media/(?P<path>.*/)$', serve, {"document_root": MEDIA_ROOT}),
+    url(r'^media/(?P<path>.*/)', serve, {"document_root": MEDIA_ROOT}),
 ]
 
 # 配置全局404页面

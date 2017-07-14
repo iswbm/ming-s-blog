@@ -1,6 +1,6 @@
 {% extends 'user_base.html' %}
 
-
+{% block title %}<title>MING's BLOG 用户头像设置</title>{% endblock %}
 {% block form %}
 <form id="email_register_form" method="post" enctype="multipart/form-data" autocomplete="off" action="{% url 'user:upload' %}"">
     <h1>修改头像</h1>

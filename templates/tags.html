@@ -12,8 +12,8 @@
                     <!-- 标签云 -->
                         <div class="tag-cloud-tags">
                             {% for tag in tags %}
-                            <span style="filter:alpha(Opacity={{ tag.nums|get_transparency_1 }});-moz-opacity:{{ tag.nums|get_transparency_2 }};opacity: {{ tag.nums|get_transparency_2 }};">
-                                <a href="{% url 'tag_article' tag.name %}" style="font-size:{{ tag.nums|get_font_size }}px;color:#000000">{{ tag.name }}</a>
+                            <span style="filter:alpha(Opacity={{ tag.get_tag_count|get_transparency_1 }});-moz-opacity:{{ tag.get_tag_count|get_transparency_2 }};opacity: {{ tag.get_tag_count|get_transparency_2 }};">
+                                <a href="{% url 'tag_article' tag.name %}" style="font-size:{{ tag.get_tag_count|get_font_size }}px;color:#000000">{{ tag.name }}</a>
                             </span>
                             {% endfor %}
 

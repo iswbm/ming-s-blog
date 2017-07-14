@@ -124,7 +124,12 @@ class TagView(View):
         visit.visit_nums += 1
         visit.save()
 
+        def cal_nums(tag_obj):
+            tag_obj.nums = tag_obj.articletag_set.count()
+            tag_obj.save()
+
         tags = Tags.objects.all()
+        map(cal_nums, tags)
         count = tags.count()
         article_nums = Articles.objects.count()
         cat_nums = Category.objects.count()

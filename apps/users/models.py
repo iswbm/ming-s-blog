@@ -12,7 +12,7 @@ class UserProfile(AbstractUser):
     birthday = models.DateField(verbose_name=u'生日', null=True, blank=True)
     gender = models.CharField(max_length=10, choices=(("male", u'男'), ("female", u'女')), default='female')
     address = models.CharField(max_length=11, verbose_name=u'地址', null=True, blank=True)
-    image = models.ImageField(upload_to='image/%Y/%m', default=u"image/default.png", max_length=100)
+    image = models.ImageField(upload_to='image/%Y/%m', default=u"media/defaull.png", max_length=100)
     phone = models.CharField(max_length=11, verbose_name=u"手机号码", null=True, blank=True)
     # image依赖Pillow
 
